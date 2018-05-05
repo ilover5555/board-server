@@ -18,6 +18,9 @@ var User={
     addUser:function(User,callback){
         return db.query("Insert into user (id, email, name, nickname, profile) values(?,?,?,?,?)",[User.id,User.email,User.name,User.nickname,User.profile],callback);
     },
+    updateNameAndNickname: function(User, callback) {
+        return db.query("update user set name=?, nickname=? where id=?",[User.name, User.nickname, User.id],callback);
+    }
 
 };
 module.exports=User;

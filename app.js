@@ -10,6 +10,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var boardRouter = require('./routes/board');
+var articleRouter = require('./routes/article');
 
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
@@ -93,12 +95,9 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.get('/api/private', function (req, res) {
-    console.log(req.session);
-    res.json({
-        message: 'Hello from a private endpoint! You need to be authenticated to see this.'
-    });
-});
+app.use('/board', boardRouter);
+app.use('/article', articleRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

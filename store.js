@@ -8,6 +8,9 @@ var store = {
     },
     get : (token) => {
         return _s[token] ? _s[token] : null;
+    },
+    update: (token, User) => {
+        _s[token] = User;
     }
 };
 
