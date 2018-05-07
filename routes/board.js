@@ -13,7 +13,18 @@ router.get('/list', function (req, res, next) {
             res.json({success: true, data : rows});
         }
     })
+});
 
+/* GET users listing. */
+router.get('/list/with/:name', function (req, res, next) {
+    const name = req.params.name;
+    Board.getBoardByName(name, (err, rows) => {
+        if(err) {
+            res.json({success : false});
+        } else {
+            res.json({success: true, data : rows[0]});
+        }
+    });
 });
 
 module.exports = router;

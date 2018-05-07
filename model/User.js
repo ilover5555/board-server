@@ -11,6 +11,10 @@ var User={
 
         return db.query("select * from user where identifier=?",[id],callback);
     },
+    getUserByIdentifiers:function(ids,callback){
+
+        return db.query("select * from user where identifier in (?)",[ids],callback);
+    },
     getUserById:function(id,callback){
 
         return db.query("select * from user where id=?",[id],callback);

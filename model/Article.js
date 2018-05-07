@@ -11,7 +11,20 @@ var Article={
     getArticleByIdentifier:function(id,callback){
         return db.query("select * from article where Identifier=?",[id],callback);
     },
+    getArticleByParentId:function(id,callback){
+        return db.query("select * from article where parent=?",[id],callback);
+    },
     addArticle:function(Article,User,callback){
+        return db.query("Insert into article (title, contents, writerId, commentCount, viewCount, parent, o, oo, tableId) values(?,?,?,?,?,?,?,?,?)",
+            [Article.title,Article.contents,User.identifier,Article.commentCount,Article.viewCount,Article.parent,Article.o,Article.oo, Article.tableId],callback);
+    },
+    getNextO: function(parentId, callback) {
+        return db.query('select max(o)+1 from article where parent=?', [parentId], callback);
+    },
+    getNextOO: function(parentId, o, callback) {
+        return db.query('select max(oo)+1 from article where parent=? and o=?', [parentId, o], callback);
+    },
+    addComment:function(Article,User,callback){
         return db.query("Insert into article (title, contents, writerId, commentCount, viewCount, parent, o, oo, tableId) values(?,?,?,?,?,?,?,?,?)",
             [Article.title,Article.contents,User.identifier,Article.commentCount,Article.viewCount,Article.parent,Article.o,Article.oo, Article.tableId],callback);
     },
